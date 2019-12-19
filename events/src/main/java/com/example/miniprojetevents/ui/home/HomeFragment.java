@@ -72,23 +72,18 @@ public class HomeFragment extends Fragment {
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.action_recents:
-                        pager.setCurrentItem(0);
-                        Toast.makeText(root.getContext(), "Recents", Toast.LENGTH_SHORT).show();
-                        break;
-                    case R.id.action_map:
-                        pager.setCurrentItem(1);
-                        Toast.makeText(root.getContext(), "Nearby", Toast.LENGTH_SHORT).show();
-                        break;
-                    case R.id.action_favorites:
-                        pager.setCurrentItem(2);
-                        Toast.makeText(root.getContext(), "Favorites", Toast.LENGTH_SHORT).show();
-                        break;
-                    case R.id.action_nearby:
-                        Toast.makeText(root.getContext(), "Nearby", Toast.LENGTH_SHORT).show();
-                        break;
-
+                int id = item.getItemId();
+                if (id == R.id.action_recents) {
+                    pager.setCurrentItem(0);
+                    Toast.makeText(root.getContext(), "Recents", Toast.LENGTH_SHORT).show();
+                } else if (id == R.id.action_map) {
+                    pager.setCurrentItem(1);
+                    Toast.makeText(root.getContext(), "Nearby", Toast.LENGTH_SHORT).show();
+                } else if (id == R.id.action_favorites) {
+                    pager.setCurrentItem(2);
+                    Toast.makeText(root.getContext(), "Favorites", Toast.LENGTH_SHORT).show();
+                } else if (id == R.id.action_nearby) {
+                    Toast.makeText(root.getContext(), "Nearby", Toast.LENGTH_SHORT).show();
                 }
                 return true;
             }
