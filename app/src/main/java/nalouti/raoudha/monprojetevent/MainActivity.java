@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.d("sucess", " success login hiya hoh ");
                 ///insertion dans la base de données
                 checkLoginStatus();
-                Intent profileActivity = new Intent(MainActivity.this, ProfileActivity.class);
+                Intent profileActivity = new Intent(MainActivity.this, com.example.miniprojetevents.MainActivity.class);
                 startActivity(profileActivity);
 
 
@@ -150,7 +150,7 @@ public class MainActivity extends AppCompatActivity {
                             userMail = memail;
                             Toast.makeText(MainActivity.this, memail + "  is connected !!", Toast.LENGTH_LONG).show();
                             //ici si vous voulez diriger la page vers une autre page
-                            Intent ProfileActivity = new Intent(MainActivity.this, ProfileActivity.class);
+                            Intent ProfileActivity = new Intent(MainActivity.this, com.example.miniprojetevents.MainActivity.class);
                             startActivity(ProfileActivity);
 
                         }
@@ -207,7 +207,7 @@ public class MainActivity extends AppCompatActivity {
     private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
         try {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
-            Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
+            Intent intent = new Intent(MainActivity.this, com.example.miniprojetevents.MainActivity.class);
             startActivity(intent);
             // Signed in successfully, show authenticated UI.
         } catch (ApiException e) {
