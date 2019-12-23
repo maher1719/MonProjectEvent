@@ -17,7 +17,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.miniprojetevents.R;
-import com.stepstone.stepper.Step;
+import com.stepstone.stepper.BlockingStep;
+import com.stepstone.stepper.StepperLayout;
 import com.stepstone.stepper.VerificationError;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
@@ -27,7 +28,7 @@ import java.util.Calendar;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class DateEventFragment extends Fragment implements Step, DatePickerDialog.OnDateSetListener,
+public class DateEventFragment extends Fragment implements BlockingStep, DatePickerDialog.OnDateSetListener,
         TimePickerDialog.OnTimeSetListener {
 
 
@@ -51,9 +52,12 @@ public class DateEventFragment extends Fragment implements Step, DatePickerDialo
         view = inflater.inflate(R.layout.fragment_date_event, container, false);
         text = view.findViewById(R.id.date_fragment_spinner);
         final Button button_datepicker = (Button) view.findViewById(R.id.button_datepicker);
+        Calendar now = Calendar.getInstance();
         button_datepicker.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                datePickerDialog = DatePickerDialog.newInstance(DateEventFragment.this, Year, Month, Day);
+                datePickerDialog = DatePickerDialog.newInstance(DateEventFragment.this, now.get(Calendar.YEAR), // Initial year selection
+                        now.get(Calendar.MONTH), // Initial month selection
+                        now.get(Calendar.DAY_OF_MONTH));
                 datePickerDialog.setThemeDark(false);
                 datePickerDialog.showYearPickerFirst(false);
                 datePickerDialog.setTitle("Date Picker");
@@ -107,7 +111,7 @@ public class DateEventFragment extends Fragment implements Step, DatePickerDialo
 
     @Override
     public void onDateSet(DatePickerDialog view2, int year, int monthOfYear, int dayOfMonth) {
-        String date = "Date: " + Day + "/" + (Month + 1) + "/" + Year;
+        String date = "Date: " + dayOfMonth + "/" + (monthOfYear + 1) + "/" + year;
         Toast.makeText(getContext(), date, Toast.LENGTH_LONG).show();
         TextView text_datepicker = (TextView) view.findViewById(R.id.date_datepicker);
         text_datepicker.setText(date);
@@ -115,5 +119,17 @@ public class DateEventFragment extends Fragment implements Step, DatePickerDialo
 
     @Override
     public void onTimeSet(TimePickerDialog view, int hourOfDay, int minute, int second) {
+    }
+
+    @Override
+    public void onNextClicked(StepperLayout.OnNextClickedCallback callback) {
+    }
+
+    @Override
+    public void onCompleteClicked(StepperLayout.OnCompleteClickedCallback callback) {
+    }
+
+    @Override
+    public void onBackClicked(StepperLayout.OnBackClickedCallback callback) {
     }
 }
