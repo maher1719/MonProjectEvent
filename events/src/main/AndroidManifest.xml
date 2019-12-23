@@ -13,12 +13,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-
+        <activity android:name=".AddStepEvent"></activity>
         <activity
             android:name=".AddEvent"
             android:theme="@style/Theme.Slidr.Slidable" />
-
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"

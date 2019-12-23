@@ -135,7 +135,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void Authentification(String email, String password) {
-        mService.loginUser(email, password)
+        Intent ProfileActivity = new Intent(MainActivity.this, com.example.miniprojetevents.MainActivity.class);
+        startActivity(ProfileActivity);
+
+        /*mService.loginUser(email, password)
                 .enqueue(new Callback<APIResponse>() {
                     @Override
                     public void onResponse(Call<APIResponse> call, Response<APIResponse> response) {
@@ -162,7 +165,7 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(MainActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
 
                     }
-                });
+                });*/
 
 
     }

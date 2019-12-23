@@ -103,6 +103,9 @@ public class Event implements Serializable {
         this.description = description;
     }
 
+    public Event() {
+    }
+
 
     public int getId() {
         return id;
