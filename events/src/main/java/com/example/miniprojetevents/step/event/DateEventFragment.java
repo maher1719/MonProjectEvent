@@ -17,6 +17,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.miniprojetevents.R;
+import com.example.miniprojetevents.entities.Event;
 import com.stepstone.stepper.BlockingStep;
 import com.stepstone.stepper.StepperLayout;
 import com.stepstone.stepper.VerificationError;
@@ -24,12 +25,12 @@ import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
 import java.util.Calendar;
+import java.util.Date;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class DateEventFragment extends Fragment implements BlockingStep, DatePickerDialog.OnDateSetListener,
-        TimePickerDialog.OnTimeSetListener {
+public class DateEventFragment extends Fragment implements BlockingStep {
 
 
     TextView text;
@@ -39,6 +40,7 @@ public class DateEventFragment extends Fragment implements BlockingStep, DatePic
     Calendar calendar;
     private DataManager dataManager;
     View view;
+    Event event;
 
     public DateEventFragment() {
         // Required empty public constructor
@@ -51,16 +53,29 @@ public class DateEventFragment extends Fragment implements BlockingStep, DatePic
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_date_event, container, false);
         text = view.findViewById(R.id.date_fragment_spinner);
-        final Button button_datepicker = (Button) view.findViewById(R.id.button_datepicker);
+        final Button button_datepicker = view.findViewById(R.id.button_datepicker);
         Calendar now = Calendar.getInstance();
+        datePickerDialog = DatePickerDialog.newInstance((view1, year, monthOfYear, dayOfMonth) -> {
+                },
+                now.get(Calendar.YEAR),
+                now.get(Calendar.MONTH),
+                now.get(Calendar.DAY_OF_MONTH));
         button_datepicker.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                datePickerDialog = DatePickerDialog.newInstance(DateEventFragment.this, now.get(Calendar.YEAR), // Initial year selection
-                        now.get(Calendar.MONTH), // Initial month selection
-                        now.get(Calendar.DAY_OF_MONTH));
+                //datePickerDialog.setMinDate(Calendar.getInstance());
                 datePickerDialog.setThemeDark(false);
                 datePickerDialog.showYearPickerFirst(false);
                 datePickerDialog.setTitle("Date Picker");
+                datePickerDialog.setOnDateSetListener(new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
+                        String date = "Date: " + dayOfMonth + "/" + (monthOfYear + 1) + "/" + year;
+                        Toast.makeText(getContext(), date, Toast.LENGTH_LONG).show();
+                        event = dataManager.getData();
+                        Date dateY = new Date(year - 1900, monthOfYear, dayOfMonth);
+                        event.setDateDebEvent(dateY);
+                    }
+                });
                 datePickerDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
 
                     @Override
@@ -110,26 +125,19 @@ public class DateEventFragment extends Fragment implements BlockingStep, DatePic
     }
 
     @Override
-    public void onDateSet(DatePickerDialog view2, int year, int monthOfYear, int dayOfMonth) {
-        String date = "Date: " + dayOfMonth + "/" + (monthOfYear + 1) + "/" + year;
-        Toast.makeText(getContext(), date, Toast.LENGTH_LONG).show();
-        TextView text_datepicker = (TextView) view.findViewById(R.id.date_datepicker);
-        text_datepicker.setText(date);
-    }
-
-    @Override
-    public void onTimeSet(TimePickerDialog view, int hourOfDay, int minute, int second) {
-    }
-
-    @Override
     public void onNextClicked(StepperLayout.OnNextClickedCallback callback) {
+        dataManager.saveData(event);
+        callback.goToNextStep();
     }
 
     @Override
     public void onCompleteClicked(StepperLayout.OnCompleteClickedCallback callback) {
+        getActivity().finish();
+        callback.complete();
     }
 
     @Override
     public void onBackClicked(StepperLayout.OnBackClickedCallback callback) {
+        callback.goToPrevStep();
     }
 }

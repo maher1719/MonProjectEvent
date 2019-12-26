@@ -5,10 +5,14 @@ import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+import androidx.room.TypeConverters;
 
+import com.example.miniprojetevents.database.Converter;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
+import java.util.Date;
+
 
 @Entity(tableName = "Event")
 public class Event implements Serializable {
@@ -51,21 +55,25 @@ public class Event implements Serializable {
     @SerializedName("longtitude")
     private double longtitude;
 
-    /*@SerializedName("dateDebEvent")
+    @TypeConverters(Converter.class)
+    @SerializedName("dateDebEvent")
     @ColumnInfo(name = "dateDebEvent")
     private Date dateDebEvent;
 
+    @TypeConverters(Converter.class)
     @SerializedName("timeDebEvent")
     @ColumnInfo(name = "timeDebEvent")
-    private Time timeDebEvent;
+    private Date timeDebEvent;
 
+    @TypeConverters(Converter.class)
     @SerializedName("dateFin")
     @ColumnInfo(name = "dateFin")
     private Date dateFin;
 
+    @TypeConverters(Converter.class)
     @SerializedName("timeFinEvent")
     @ColumnInfo(name = "timeFinEvent")
-    private Time timeFinEvent;*/
+    private Date timeFinEvent;
 
 
     @SerializedName("duree")
@@ -81,9 +89,27 @@ public class Event implements Serializable {
     @ColumnInfo(name = "userMail")
     private String userMail;
 
-    /*@SerializedName("deteAjout")
+    public Date getDateFin() {
+        return dateFin;
+    }
+
+    public void setDateFin(Date dateFin) {
+        this.dateFin = dateFin;
+    }
+
+
+    public Date getDateAjout() {
+        return dateAjout;
+    }
+
+    public void setDateAjout(Date dateAjout) {
+        this.dateAjout = dateAjout;
+    }
+
+    @TypeConverters(Converter.class)
+    @SerializedName("deteAjout")
     @ColumnInfo(name = "dateAjout")
-    private Date dateAjout;*/
+    private Date dateAjout;
 
 
     @SerializedName("description")
@@ -171,7 +197,7 @@ public class Event implements Serializable {
         this.capacite = capacite;
     }
 
-    /*public Date getDateDebEvent() {
+    public Date getDateDebEvent() {
         return dateDebEvent;
     }
 
@@ -179,13 +205,21 @@ public class Event implements Serializable {
         this.dateDebEvent = dateDebEvent;
     }
 
-    public Time getTimeDebEvent() {
+    public Date getTimeDebEvent() {
         return timeDebEvent;
     }
 
-    public void setTimeDebEvent(Time timeDebEvent) {
+    public void setTimeDebEvent(Date timeDebEvent) {
         this.timeDebEvent = timeDebEvent;
-    }*/
+    }
+
+    public Date getTimeFinEvent() {
+        return timeFinEvent;
+    }
+
+    public void setTimeFinEvent(Date timeFinEvent) {
+        this.timeFinEvent = timeFinEvent;
+    }
 
     public String getDuree() {
         return duree;
