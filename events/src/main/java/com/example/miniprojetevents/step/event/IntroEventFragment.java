@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.miniprojetevents.R;
 import com.example.miniprojetevents.entities.Event;
+import com.google.android.material.textfield.TextInputEditText;
 import com.stepstone.stepper.BlockingStep;
 import com.stepstone.stepper.StepperLayout;
 import com.stepstone.stepper.VerificationError;
@@ -138,7 +139,7 @@ public class IntroEventFragment extends Fragment implements BlockingStep {
 
     @Override
     public void onNextClicked(StepperLayout.OnNextClickedCallback callback) {
-        EditText titre = view.findViewById(R.id.titre);
+        TextInputEditText titre = view.findViewById(R.id.titre);
         e.setTitle(titre.getText().toString());
         dataManager.saveData(e);
         callback.goToNextStep();

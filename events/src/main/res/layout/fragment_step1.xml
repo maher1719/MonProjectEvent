@@ -14,35 +14,81 @@
         android:layout_marginStart="7dp"
         android:text="Formulaire  Ajout" />
 
-    <EditText
-        android:id="@+id/titre"
-        android:layout_width="146dp"
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/titre_layout"
         android:layout_alignTop="@+id/textView2"
         android:layout_alignParentStart="true"
         android:layout_marginStart="12dp"
         android:layout_marginTop="60dp"
-        android:hint="Event Name"
-        android:inputType="textPersonName"
-        android:text="Name" />
+
+        style = "@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+
+        >
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/titre"
+            android:hint="Event Name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/textView2"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="60dp"
+
+            style = "@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/description_layout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/titre_layout"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="12dp"
+
+        android:layout_marginTop="83dp"
+
+        >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/description_ajout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:layout_marginTop="60dp"
+            android:hint="Description"
+            android:lines="4"
+
+            />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <Spinner
         android:id="@+id/lieu__spinner"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/titre"
         android:layout_alignTop="@+id/textView2"
-        android:layout_marginStart="232dp"
-        android:layout_marginTop="72dp" />
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="13dp"
+        android:layout_marginTop="339dp"
+        android:layout_marginEnd="337dp"
+        android:spinnerMode="dialog" />
 
     <Spinner
         android:id="@+id/spinner__cat"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/titre"
+        android:layout_alignTop="@+id/titre_layout"
         android:layout_alignParentStart="true"
 
-        android:layout_marginStart="6dp"
-        android:layout_marginTop="69dp"
+        android:layout_marginStart="21dp"
+        android:layout_marginTop="364dp"
         android:spinnerMode="dialog" />
+
 </RelativeLayout>

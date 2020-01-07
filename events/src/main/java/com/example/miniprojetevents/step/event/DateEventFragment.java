@@ -72,6 +72,7 @@ public class DateEventFragment extends Fragment implements BlockingStep {
                         String date = "Date: " + dayOfMonth + "/" + (monthOfYear + 1) + "/" + year;
                         Toast.makeText(getContext(), date, Toast.LENGTH_LONG).show();
                         event = dataManager.getData();
+
                         Date dateY = new Date(year - 1900, monthOfYear, dayOfMonth);
                         event.setDateDebEvent(dateY);
                     }

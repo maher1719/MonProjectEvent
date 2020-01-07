@@ -14,6 +14,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 
+
 @Entity(tableName = "Event")
 public class Event implements Serializable {
 

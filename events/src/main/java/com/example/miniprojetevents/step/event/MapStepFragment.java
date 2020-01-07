@@ -23,6 +23,7 @@ import com.mapbox.mapboxsdk.maps.Style;
 import com.stepstone.stepper.BlockingStep;
 import com.stepstone.stepper.StepperLayout;
 import com.stepstone.stepper.VerificationError;
+import java.time.LocalDate;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -53,6 +54,7 @@ public class MapStepFragment extends Fragment implements BlockingStep {
         root = inflater.inflate(R.layout.fragment_map_step, container, false);
         mapView = root.findViewById(R.id.mapViewStep);
         //mapView.onCreate(savedInstanceState);
+
         mapView.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(@NonNull MapboxMap mapboxMap) {
@@ -170,11 +172,14 @@ public class MapStepFragment extends Fragment implements BlockingStep {
 
     @Override
     public void onCompleteClicked(StepperLayout.OnCompleteClickedCallback callback) {
+
+
         callback.complete();
         getActivity().finish();
     }
 
     @Override
     public void onBackClicked(StepperLayout.OnBackClickedCallback callback) {
+        callback.goToPrevStep();
     }
 }
