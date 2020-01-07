@@ -24,6 +24,8 @@ import com.stepstone.stepper.VerificationError;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -74,7 +76,16 @@ public class DateEventFragment extends Fragment implements BlockingStep {
                         event = dataManager.getData();
 
                         Date dateY = new Date(year - 1900, monthOfYear, dayOfMonth);
-                        event.setDateDebEvent(dateY);
+                        String d = year + "-" + (monthOfYear + 1) + "-" + dayOfMonth;
+                        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+                        try {
+                            Date dateu = formatter.parse(d);
+                            event.setDateDebEvent(dateu);
+                            Log.d("EventD", String.format("onDateSet: " + formatter.format(dateu)));
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+
                     }
                 });
                 datePickerDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {

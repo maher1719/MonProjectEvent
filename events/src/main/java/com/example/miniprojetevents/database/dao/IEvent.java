@@ -3,6 +3,7 @@ package com.example.miniprojetevents.database.dao;
 import com.example.miniprojetevents.entities.Event;
 import com.example.miniprojetevents.entities.MessageNetwork;
 
+import java.util.Date;
 import java.util.List;
 
 import retrofit2.Call;
@@ -24,6 +25,27 @@ public interface IEvent {
 
     @FormUrlEncoded
     @POST("/mesWebServices/addEvent.php")
+    Call addEventData2(
+            @Field("titre") String titre,
+            @Field("categorie") String categorie,
+            @Field("type") String type,
+            @Field("imgEvent") String imgEvent,
+            @Field("montant") String montant,
+            @Field("description") String description,
+            @Field("capacite") String capacite,
+            @Field("dateDebEvent") Date dateDebEvent,
+            @Field("timeDebEvent") Date timeDebEvent,
+            @Field("duree") int duree,
+            @Field("dateFin") Date dateFin,
+            @Field("timeFinEvent") Date timeFinEvent,
+            @Field("lieuEvent") String lieuEvent,
+            @Field("userMail") String userMail,
+            @Field("longituse") double longitude,
+            @Field("latitude") double latitude
+    );
+
+    @FormUrlEncoded
+    @POST("/mesWebServices/addEvent.php")
     Call<MessageNetwork> addEventData(
             @Field("titre") String titre,
             @Field("categorie") String categorie,
@@ -32,11 +54,11 @@ public interface IEvent {
             @Field("montant") String montant,
             @Field("description") String description,
             @Field("capacite") String capacite,
-            @Field("dateDebEvent") String dateDebEvent,
-            @Field("timeDebEvent") String timeDebEvent,
+            @Field("dateDebEvent") Date dateDebEvent,
+            @Field("timeDebEvent") Date timeDebEvent,
             @Field("duree") int duree,
-            @Field("dateFin") String dateFin,
-            @Field("timeFinEvent") String timeFinEvent,
+            @Field("dateFin") Date dateFin,
+            @Field("timeFinEvent") Date timeFinEvent,
             @Field("lieuEvent") String lieuEvent,
             @Field("userMail") String userMail,
             @Field("longituse") double longitude,

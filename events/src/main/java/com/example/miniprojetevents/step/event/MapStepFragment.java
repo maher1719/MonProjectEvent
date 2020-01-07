@@ -3,6 +3,7 @@ package com.example.miniprojetevents.step.event;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,11 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.miniprojetevents.R;
+import com.example.miniprojetevents.database.dao.IEvent;
+import com.example.miniprojetevents.entities.Event;
+import com.example.miniprojetevents.entities.MessageNetwork;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.mapbox.mapboxsdk.annotations.Marker;
 import com.mapbox.mapboxsdk.annotations.MarkerOptions;
 import com.mapbox.mapboxsdk.geometry.LatLng;
@@ -23,6 +29,12 @@ import com.mapbox.mapboxsdk.maps.Style;
 import com.stepstone.stepper.BlockingStep;
 import com.stepstone.stepper.StepperLayout;
 import com.stepstone.stepper.VerificationError;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -175,6 +187,68 @@ public class MapStepFragment extends Fragment implements BlockingStep {
 
     @Override
     public void onCompleteClicked(StepperLayout.OnCompleteClickedCallback callback) {
+        final String BASE_URL = "http://10.0.2.2:81";
+        Gson gson = new GsonBuilder()
+                .setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
+                .create();
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .build();
+        IEvent user = retrofit.create(IEvent.class);
+        Event event = dataManager.getData();/*
+        @Field("titre") String titre,
+        @Field("categorie") String categorie,
+        @Field("type") String type,
+        @Field("imgEvent") String imgEvent,
+        @Field("montant") String montant,
+        @Field("description") String description,
+        @Field("capacite") String capacite,
+        @Field("dateDebEvent") String dateDebEvent,
+        @Field("timeDebEvent") String timeDebEvent,
+        @Field("duree") int duree,
+        @Field("dateFin") String dateFin,
+        @Field("timeFinEvent") String timeFinEvent,
+        @Field("lieuEvent") String lieuEvent,
+        @Field("userMail") String userMail,
+        @Field("longituse") double longitude,
+        @Field("latitude") double latitude
+    );*/
+        Call<MessageNetwork> call = user.addEventData(event.getTitle(), event.getCategorie(), event.getType(), null, "23",
+                event.getDescription(), "34", event.getDateDebEvent(), null, 4, null, null
+                , event.getLieuEvent(), "mail", event.getLongtitude(), event.getLatitude()
+        );
+        call.enqueue(new Callback<MessageNetwork>() {
+            @Override
+            public void onResponse(Call<MessageNetwork> call, Response<MessageNetwork> response) {
+                if (response.isSuccessful()) {
+                    Toast.makeText(getContext(), "server returned so many repositories: " + response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    Log.d("EventD", "onResponse: " + "server returned so many repositories: " + response.body().getMessage());
+                    // todo display the data instead of just a toast
+                } else {
+                    // error case
+                    switch (response.code()) {
+                        case 404:
+                            Toast.makeText(getContext(), "not found", Toast.LENGTH_SHORT).show();
+                            break;
+                        case 500:
+                            Toast.makeText(getContext(), "server broken", Toast.LENGTH_SHORT).show();
+                            break;
+                        default:
+                            Toast.makeText(getContext(), "unknown error", Toast.LENGTH_SHORT).show();
+                            break;
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MessageNetwork> call, Throwable t) {
+                Log.d("EventD", "onFailure: " + t.getMessage());
+                Log.d("EventD", "onFailure: " + call.request().toString());
+                Log.d("EventD", "onFailure: " + call.toString());
+
+            }
+        });
         callback.complete();
         getActivity().finish();
     }
