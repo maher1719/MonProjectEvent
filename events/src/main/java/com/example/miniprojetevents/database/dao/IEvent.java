@@ -38,7 +38,9 @@ public interface IEvent {
             @Field("dateFin") String dateFin,
             @Field("timeFinEvent") String timeFinEvent,
             @Field("lieuEvent") String lieuEvent,
-            @Field("userMail") String userMail
+            @Field("userMail") String userMail,
+            @Field("longituse") double longitude,
+            @Field("latitude") double latitude
     );
 
 
