@@ -145,7 +145,7 @@ public class DateEventFragment extends Fragment implements BlockingStep {
                     @Override
                     public void onTimeSet(TimePickerDialog view, int hourOfDay, int minute, int second) {
                         Date date = new Date(0, 0, 0, hourOfDay, minute, second);
-                        dataManager.getData().setTimeDebEvent(date);
+                        dataManager.getData().setTimeDebEvent(hourOfDay + ":" + minute);
                     }
                 });
                 timePickerDialog.show(getFragmentManager(), "TimePicker fin");
@@ -159,7 +159,7 @@ public class DateEventFragment extends Fragment implements BlockingStep {
                     @Override
                     public void onTimeSet(TimePickerDialog view, int hourOfDay, int minute, int second) {
                         Date date = new Date(0, 0, 0, hourOfDay, minute, second);
-                        dataManager.getData().setTimeFinEvent(date);
+                        dataManager.getData().setTimeFinEvent(hourOfDay + ":" + minute);
                     }
                 });
                 timePickerDialog.show(getFragmentManager(), "TimePicker");

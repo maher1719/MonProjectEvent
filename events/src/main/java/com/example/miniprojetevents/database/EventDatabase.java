@@ -24,7 +24,7 @@ public abstract class EventDatabase extends RoomDatabase {
             synchronized (EventDatabase.class) {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
-                            EventDatabase.class, "Event7")
+                            EventDatabase.class, "Event8")
                             .build();
                 }
             }

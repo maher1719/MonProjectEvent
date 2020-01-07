@@ -61,20 +61,20 @@ public class Event implements Serializable {
     @ColumnInfo(name = "dateDebEvent")
     private Date dateDebEvent;
 
-    @TypeConverters(Converter.class)
+
     @SerializedName("timeDebEvent")
     @ColumnInfo(name = "timeDebEvent")
-    private Date timeDebEvent;
+    private String timeDebEvent;
 
     @TypeConverters(Converter.class)
     @SerializedName("dateFin")
     @ColumnInfo(name = "dateFin")
     private Date dateFin;
 
-    @TypeConverters(Converter.class)
+
     @SerializedName("timeFinEvent")
     @ColumnInfo(name = "timeFinEvent")
-    private Date timeFinEvent;
+    private String timeFinEvent;
 
 
     @SerializedName("duree")
@@ -206,19 +206,19 @@ public class Event implements Serializable {
         this.dateDebEvent = dateDebEvent;
     }
 
-    public Date getTimeDebEvent() {
+    public String getTimeDebEvent() {
         return timeDebEvent;
     }
 
-    public void setTimeDebEvent(Date timeDebEvent) {
+    public void setTimeDebEvent(String timeDebEvent) {
         this.timeDebEvent = timeDebEvent;
     }
 
-    public Date getTimeFinEvent() {
+    public String getTimeFinEvent() {
         return timeFinEvent;
     }
 
-    public void setTimeFinEvent(Date timeFinEvent) {
+    public void setTimeFinEvent(String timeFinEvent) {
         this.timeFinEvent = timeFinEvent;
     }
 

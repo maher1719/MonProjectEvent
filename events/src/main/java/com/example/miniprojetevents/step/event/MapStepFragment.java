@@ -217,16 +217,15 @@ public class MapStepFragment extends Fragment implements BlockingStep {
         @Field("latitude") double latitude
     );*/
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-        SimpleDateFormat formatter2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat formatter2 = new SimpleDateFormat("HH:mm:ss");
 
         String des = event.getDescription();
         String dateDeb = String.format(formatter.format(event.getDateDebEvent()));
         String datefin = String.format(formatter.format(event.getDateFin()));
-        String timeDeb = String.format(formatter2.format(event.getTimeDebEvent()));
-        String timeFin = String.format(formatter2.format(event.getTimeFinEvent()));
+
         Call<MessageNetwork> call = user.addEventData(
                 event.getTitle(), event.getCategorie(), event.getType(),
-                null, "23", des, "34", dateDeb, timeDeb, 4, datefin, timeFin
+                null, "23", des, "34", dateDeb, event.getTimeDebEvent(), 4, datefin, event.getTimeFinEvent()
                 , event.getLieuEvent(), "mail", event.getLongtitude(), event.getLatitude()
         );
         call.enqueue(new Callback<MessageNetwork>() {
