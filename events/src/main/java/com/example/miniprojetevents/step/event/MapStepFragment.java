@@ -30,6 +30,8 @@ import com.stepstone.stepper.BlockingStep;
 import com.stepstone.stepper.StepperLayout;
 import com.stepstone.stepper.VerificationError;
 
+import java.text.SimpleDateFormat;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -214,16 +216,21 @@ public class MapStepFragment extends Fragment implements BlockingStep {
         @Field("longituse") double longitude,
         @Field("latitude") double latitude
     );*/
-        Call<MessageNetwork> call = user.addEventData(event.getTitle(), event.getCategorie(), event.getType(), null, "23",
-                event.getDescription(), "34", event.getDateDebEvent(), null, 4, null, null
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        String des = event.getDescription();
+        String dateDeb = String.format(formatter.format(event.getDateDebEvent()));
+        Call<MessageNetwork> call = user.addEventData(
+                event.getTitle(), event.getCategorie(), event.getType(),
+                null, "23", des, "34", dateDeb, null, 4, null, null
                 , event.getLieuEvent(), "mail", event.getLongtitude(), event.getLatitude()
         );
         call.enqueue(new Callback<MessageNetwork>() {
             @Override
             public void onResponse(Call<MessageNetwork> call, Response<MessageNetwork> response) {
                 if (response.isSuccessful()) {
-                    Toast.makeText(getContext(), "server returned so many repositories: " + response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                    Log.d("EventD", "onResponse: " + "server returned so many repositories: " + response.body().getMessage());
+                    Toast.makeText(getContext(), "server " + event.getDateDebEvent() + response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    Log.d("EventD", "onResponse: " + "server returned so many repositories: " + dateDeb + response.body().getMessage());
+                    Log.d("EventD", "onResponse: " + event.toString());
                     // todo display the data instead of just a toast
                 } else {
                     // error case

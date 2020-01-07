@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 
 import androidx.appcompat.widget.PopupMenu;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -20,7 +19,6 @@ import com.example.miniprojetevents.R;
 import com.example.miniprojetevents.database.dao.IEvent;
 import com.example.miniprojetevents.entities.Event;
 import com.example.miniprojetevents.ui.event.EventListAdapter;
-import com.example.miniprojetevents.viewModel.EventViewModel;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.mancj.materialsearchbar.MaterialSearchBar;
@@ -53,10 +51,11 @@ public class HomeEvents extends Fragment {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_home_events, container, false);
         RecyclerView listEvents = root.findViewById(R.id.list_Events);
-        EventViewModel mWordViewModel = new ViewModelProvider(this).get(EventViewModel.class);
+
         final String BASE_URL = "http://10.0.2.2:81";
         Gson gson = new GsonBuilder()
-                .setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
+                .setDateFormat("yyyy-MM-dd HH:mm:ss")
+
                 .create();
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
@@ -111,7 +110,7 @@ public class HomeEvents extends Fragment {
 
             @Override
             public void onFailure(Call<List<Event>> call, Throwable t) {
-                Log.d("failure", "onFailure3: " + t.getMessage());
+                Log.d("failure", "onFailure3: " + t.getMessage() + t.toString() + t.getLocalizedMessage());
             }
         });
         return root;

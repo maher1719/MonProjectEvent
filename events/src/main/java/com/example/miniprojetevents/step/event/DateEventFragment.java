@@ -76,9 +76,9 @@ public class DateEventFragment extends Fragment implements BlockingStep {
                         event = dataManager.getData();
 
                         Date dateY = new Date(year - 1900, monthOfYear, dayOfMonth);
-                        String d = year + "-" + (monthOfYear + 1) + "-" + dayOfMonth;
-                        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
                         try {
+                            String d = year + "-" + (monthOfYear + 1) + "-" + dayOfMonth;
+                            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
                             Date dateu = formatter.parse(d);
                             event.setDateDebEvent(dateu);
                             Log.d("EventD", String.format("onDateSet: " + formatter.format(dateu)));

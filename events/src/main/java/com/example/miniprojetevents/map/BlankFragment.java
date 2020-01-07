@@ -3,6 +3,7 @@ package com.example.miniprojetevents.map;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,7 +56,7 @@ public class BlankFragment extends Fragment {
         mapView.onCreate(savedInstanceState);
         final String BASE_URL = "http://10.0.2.2:81";
         Gson gson = new GsonBuilder()
-                .setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
+                .setDateFormat("yyyy-MM-dd HH:mm:ss")
                 .create();
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
@@ -67,6 +68,7 @@ public class BlankFragment extends Fragment {
             @Override
             public void onResponse(Call<List<Event>> call, Response<List<Event>> response) {
                 List<Event> events = response.body();
+                Log.d("EventDMap", "onResponse: " + events.get(0).toString());
                 mapView.getMapAsync(new OnMapReadyCallback() {
                     @Override
                     public void onMapReady(@NonNull MapboxMap mapboxMap) {
@@ -80,63 +82,6 @@ public class BlankFragment extends Fragment {
                                             .position(new LatLng(event.getLatitude(), event.getLongtitude()));
                                     mapboxMap.addMarker(m);
                                 }
-                                /*
-                                try {
-                                    style.addSource(
-                                            new GeoJsonSource("EventsMap",
-                                                    new URI("http://10.0.2.2:81/mesWebSErvices/geojson.php"),
-                                                    new GeoJsonOptions()
-                                                            .withCluster(true)
-                                                            .withClusterMaxZoom(15)
-                                                            .withClusterRadius(50)
-                                            )
-                                    );
-                                } catch (URISyntaxException exception) {
-                                    Log.e("errorMap", "Check the URL " + exception.getMessage());
-                                }
-                                SymbolLayer unclustered = new SymbolLayer("unclustered-points", "EventsMap");
-                                unclustered.setFilter(has("titre"));
-                                style.addLayer(unclustered);
-                                SymbolLayer countLayer = new SymbolLayer("SYMBOL_LAYER_COUNT_LAYER_ID", "EventsMap");
-                                countLayer.setProperties(
-                                        textField(Expression.toString(get("point_count"))),
-                                        textSize(12f),
-                                        textColor(getResources().getColor(R.color.white)),
-                                        textIgnorePlacement(true),
-                                        textAllowOverlap(true)
-                                );
-                                style.addLayer(countLayer);
-                                int[][] layers = new int[][]{
-                                        new int[]{10, ContextCompat.getColor(root.getContext(), R.color.colorPrimaryDark)},
-                                        new int[]{5, ContextCompat.getColor(root.getContext(), R.color.colorPrimary)},
-                                        new int[]{0, ContextCompat.getColor(root.getContext(), R.color.mapbox_blue)}
-                                };
-                                for (int i = 0; i < layers.length; i++) {
-//Add clusters' circles
-                                    CircleLayer circles = new CircleLayer("cluster-" + i, "earthquakes");
-                                    circles.setProperties(
-                                            circleColor(layers[i][1]),
-                                            circleRadius(18f)
-                                    );
-                                    Expression pointCount = toNumber(get("point_count"));
-                                    circles.setFilter(
-                                            i == 0
-                                                    ? all(has("point_count"),
-                                                    gte(pointCount, literal(layers[i][0]))
-                                            ) : all(has("point_count"),
-                                                    gte(pointCount, literal(layers[i][0])),
-                                                    lt(pointCount, literal(layers[i - 1][0]))
-                                            )
-                                    );
-                                    style.addLayer(circles);
-                                }*/
-                                /*mapboxMap.addOnMapClickListener(new MapboxMap.OnMapClickListener() {
-                                    @Override
-                                    public boolean onMapClick(@NonNull LatLng point) {
-
-                                        return true;
-                                    }
-                                });*/
                                 mapboxMap.setOnMarkerClickListener(new MapboxMap.OnMarkerClickListener() {
                                     @Override
                                     public boolean onMarkerClick(@NonNull Marker marker) {
@@ -162,38 +107,10 @@ public class BlankFragment extends Fragment {
 
             @Override
             public void onFailure(Call<List<Event>> call, Throwable t) {
+                Log.d("EventDMap", "onFailure: " + t.getMessage());
             }
         });
-        /*mapView.getMapAsync(new OnMapReadyCallback() {
-            @Override
-            public void onMapReady(@NonNull MapboxMap mapboxMap) {
-                mapboxMap.setStyle(Style.MAPBOX_STREETS, new Style.OnStyleLoaded() {
-                    @Override
-                    public void onStyleLoaded(@NonNull Style style) {
-                        List<MarkerOptions> markers = new ArrayList<>();
-                        MarkerOptions m = new MarkerOptions().setTitle("hello")
-                                .position(new LatLng(33.7932, 9.5608));
-                        mapboxMap.addMarker(m);
-                        mapboxMap.addOnMapClickListener(new MapboxMap.OnMapClickListener() {
-                            @Override
-                            public boolean onMapClick(@NonNull LatLng point) {
-                                mapboxMap.addMarker(new MarkerOptions().setPosition(point));
-                                return true;
-                            }
-                        });
-                        mapboxMap.setOnMarkerClickListener(new MapboxMap.OnMarkerClickListener() {
-                            @Override
-                            public boolean onMarkerClick(@NonNull Marker marker) {
-                                mapboxMap.removeMarker(marker);
-                                return false;
-                            }
-                        });
-                        // Map is set up and the style has loaded. Now you can add data or make other map adjustments
-                    }
-                });
 
-            }
-        });*/
         return root;
     }
 

@@ -53,7 +53,7 @@ public class Event implements Serializable {
     @SerializedName("latitude")
     private double latitude;
 
-    @SerializedName("longtitude")
+    @SerializedName("longitude")
     private double longtitude;
 
     @TypeConverters(Converter.class)
@@ -296,10 +296,18 @@ public class Event implements Serializable {
                 ", imgEvent='" + imgEvent + '\'' +
                 ", montant='" + montant + '\'' +
                 ", capacite='" + capacite + '\'' +
+                ", latitude=" + latitude +
+                ", longtitude=" + longtitude +
+                ", dateDebEvent=" + dateDebEvent +
+                ", timeDebEvent=" + timeDebEvent +
+                ", dateFin=" + dateFin +
+                ", timeFinEvent=" + timeFinEvent +
                 ", duree='" + duree + '\'' +
                 ", lieuEvent='" + lieuEvent + '\'' +
                 ", userMail='" + userMail + '\'' +
+                ", dateAjout=" + dateAjout +
                 ", description='" + description + '\'' +
                 '}';
     }
 }
+
