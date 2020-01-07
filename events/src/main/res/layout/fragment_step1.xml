@@ -72,12 +72,10 @@
         android:id="@+id/lieu__spinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/textView2"
+        android:layout_alignTop="@+id/titre_layout"
         android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="13dp"
-        android:layout_marginTop="339dp"
-        android:layout_marginEnd="337dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="279dp"
         android:spinnerMode="dialog" />
 
     <Spinner

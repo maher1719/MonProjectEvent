@@ -3,7 +3,6 @@ package com.example.miniprojetevents.database.dao;
 import com.example.miniprojetevents.entities.Event;
 import com.example.miniprojetevents.entities.MessageNetwork;
 
-import java.util.Date;
 import java.util.List;
 
 import retrofit2.Call;
@@ -29,10 +28,10 @@ public interface IEvent {
             @Field("description") String description,
             @Field("capacite") String capacite,
             @Field("dateDebEvent") String dateDebEvent,
-            @Field("timeDebEvent") Date timeDebEvent,
+            @Field("timeDebEvent") String timeDebEvent,
             @Field("duree") int duree,
-            @Field("dateFin") Date dateFin,
-            @Field("timeFinEvent") Date timeFinEvent,
+            @Field("dateFin") String dateFin,
+            @Field("timeFinEvent") String timeFinEvent,
             @Field("lieuEvent") String lieuEvent,
             @Field("userMail") String userMail,
             @Field("longitude") double longitude,

@@ -56,6 +56,9 @@ public class DateEventFragment extends Fragment implements BlockingStep {
         view = inflater.inflate(R.layout.fragment_date_event, container, false);
         text = view.findViewById(R.id.date_fragment_spinner);
         final Button button_datepicker = view.findViewById(R.id.button_datepicker);
+        final Button button_datepicker2 = view.findViewById(R.id.button_datepicker_fin);
+        final Button button_time = view.findViewById(R.id.date_timepicker);
+        final Button button_time_fin = view.findViewById(R.id.date_timepicker_fin);
         Calendar now = Calendar.getInstance();
         datePickerDialog = DatePickerDialog.newInstance((view1, year, monthOfYear, dayOfMonth) -> {
                 },
@@ -67,7 +70,7 @@ public class DateEventFragment extends Fragment implements BlockingStep {
                 //datePickerDialog.setMinDate(Calendar.getInstance());
                 datePickerDialog.setThemeDark(false);
                 datePickerDialog.showYearPickerFirst(false);
-                datePickerDialog.setTitle("Date Picker");
+                datePickerDialog.setTitle("Date Debut");
                 datePickerDialog.setOnDateSetListener(new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
@@ -96,6 +99,71 @@ public class DateEventFragment extends Fragment implements BlockingStep {
                     }
                 });
                 datePickerDialog.show(getFragmentManager(), "DatePickerDialog");
+            }
+        });
+        button_datepicker2.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                //datePickerDialog.setMinDate(Calendar.getInstance());
+                datePickerDialog.setThemeDark(false);
+                datePickerDialog.showYearPickerFirst(false);
+                datePickerDialog.setTitle("Date Debut");
+                datePickerDialog.setOnDateSetListener(new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
+                        String date = "Date: " + dayOfMonth + "/" + (monthOfYear + 1) + "/" + year;
+                        Toast.makeText(getContext(), date, Toast.LENGTH_LONG).show();
+                        event = dataManager.getData();
+                        Date dateY = new Date(year - 1900, monthOfYear, dayOfMonth);
+                        try {
+                            String d = year + "-" + (monthOfYear + 1) + "-" + dayOfMonth;
+                            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+                            Date dateu = formatter.parse(d);
+                            event.setDateFin(dateu);
+                            Log.d("EventD", String.format("onDateSet: " + formatter.format(dateu)));
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                });
+                datePickerDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+
+                    @Override
+                    public void onCancel(DialogInterface dialogInterface) {
+                        Toast.makeText(getContext(), "Datepicker Canceled", Toast.LENGTH_SHORT).show();
+                    }
+                });
+                datePickerDialog.show(getFragmentManager(), "DatePickerDialog");
+            }
+        });
+        timePickerDialog = TimePickerDialog.newInstance((view1, hourOfDay, minute, second) -> {
+        }, now.get(Calendar.HOUR_OF_DAY), now.get(Calendar.MINUTE), true);
+        button_time.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                timePickerDialog.setOnTimeSetListener(new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePickerDialog view, int hourOfDay, int minute, int second) {
+                        Date date = new Date(0, 0, 0, hourOfDay, minute, second);
+                        dataManager.getData().setTimeDebEvent(date);
+                    }
+                });
+                timePickerDialog.show(getFragmentManager(), "TimePicker fin");
+
+            }
+        });
+        button_time_fin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                timePickerDialog.setOnTimeSetListener(new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePickerDialog view, int hourOfDay, int minute, int second) {
+                        Date date = new Date(0, 0, 0, hourOfDay, minute, second);
+                        dataManager.getData().setTimeFinEvent(date);
+                    }
+                });
+                timePickerDialog.show(getFragmentManager(), "TimePicker");
+
             }
         });
         return view;

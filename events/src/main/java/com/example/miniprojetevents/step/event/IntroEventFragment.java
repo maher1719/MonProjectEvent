@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
@@ -50,6 +49,7 @@ public class IntroEventFragment extends Fragment implements BlockingStep {
         view = inflater.inflate(R.layout.fragment_step1, container, false);
         spinner = view.findViewById(R.id.lieu__spinner);
         Spinner spinner = view.findViewById(R.id.lieu__spinner);
+
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(), R.array.Gouvernerat, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
@@ -140,7 +140,9 @@ public class IntroEventFragment extends Fragment implements BlockingStep {
     @Override
     public void onNextClicked(StepperLayout.OnNextClickedCallback callback) {
         TextInputEditText titre = view.findViewById(R.id.titre);
+        TextInputEditText description = view.findViewById(R.id.description_ajout);
         e.setTitle(titre.getText().toString());
+        e.setDescription(description.getText().toString());
         dataManager.saveData(e);
         callback.goToNextStep();
 
